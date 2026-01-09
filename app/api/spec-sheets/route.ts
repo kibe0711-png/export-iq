@@ -97,14 +97,24 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function DELETE() {
+export async function DELETE(request: NextRequest) {
   try {
-    await prisma.specSheet.deleteMany();
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get("id");
+
+    if (id) {
+      await prisma.specSheet.delete({
+        where: { id: parseInt(id) },
+      });
+    } else {
+      await prisma.specSheet.deleteMany();
+    }
+
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("Failed to clear spec sheets:", error);
+    console.error("Failed to delete spec sheet:", error);
     return NextResponse.json(
-      { error: "Failed to clear spec sheets" },
+      { error: "Failed to delete spec sheet" },
       { status: 500 }
     );
   }

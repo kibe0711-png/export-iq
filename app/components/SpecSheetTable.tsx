@@ -8,6 +8,7 @@ interface SpecSheet {
   crop: string;
   packagingType: string;
   palletWeight: number;
+  unit: number;
   price: number;
 }
 
@@ -27,6 +28,19 @@ export default function SpecSheetTable({ data, onRefresh }: SpecSheetTableProps)
     } else {
       setSortField(field);
       setSortDirection("asc");
+    }
+  };
+
+  const handleDelete = async (id: number) => {
+    try {
+      const response = await fetch(`/api/spec-sheets?id=${id}`, {
+        method: "DELETE",
+      });
+      if (response.ok) {
+        onRefresh();
+      }
+    } catch (error) {
+      console.error("Failed to delete spec sheet:", error);
     }
   };
 
@@ -149,23 +163,30 @@ export default function SpecSheetTable({ data, onRefresh }: SpecSheetTableProps)
               </th>
               <th
                 className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-gray-500 cursor-pointer select-none"
+                onClick={() => handleSort("unit")}
+              >
+                Unit <SortIcon field="unit" />
+              </th>
+              <th
+                className="px-6 py-3 text-right text-xs font-semibold uppercase tracking-wider text-gray-500 cursor-pointer select-none"
                 onClick={() => handleSort("price")}
               >
                 Price <SortIcon field="price" />
               </th>
+              <th className="px-6 py-3 w-12"></th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-50">
             {sortedData.length === 0 ? (
               <tr>
-                <td colSpan={5} className="px-6 py-12 text-center text-gray-400 text-sm">
+                <td colSpan={7} className="px-6 py-12 text-center text-gray-400 text-sm font-light">
                   {searchTerm ? "No matching specifications found" : "No specifications uploaded yet"}
                 </td>
               </tr>
             ) : (
               sortedData.map((sheet) => (
                 <tr key={sheet.id} className="hover:bg-gray-50 transition-colors">
-                  <td className="px-6 py-4 text-sm font-semibold text-gray-900">
+                  <td className="px-6 py-4 text-sm font-medium text-gray-900">
                     {sheet.customerCode}
                   </td>
                   <td className="px-6 py-4">
@@ -173,12 +194,27 @@ export default function SpecSheetTable({ data, onRefresh }: SpecSheetTableProps)
                       {sheet.crop}
                     </span>
                   </td>
-                  <td className="px-6 py-4 text-sm text-gray-600">{sheet.packagingType}</td>
+                  <td className="px-6 py-4 text-sm font-light text-gray-600">{sheet.packagingType}</td>
                   <td className="px-6 py-4 text-sm text-gray-900 text-right font-mono">
                     {sheet.palletWeight.toLocaleString()} kg
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-900 text-right font-mono">
+                    {sheet.unit.toLocaleString()} kg
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-900 text-right font-mono">
                     ${sheet.price.toFixed(2)}
+                  </td>
+                  <td className="px-6 py-4">
+                    <button
+                      onClick={() => handleDelete(sheet.id)}
+                      className="p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded transition-colors"
+                      aria-label="Delete entry"
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <polyline points="3 6 5 6 21 6" />
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                      </svg>
+                    </button>
                   </td>
                 </tr>
               ))
