@@ -48,7 +48,7 @@ export default function Home() {
                 <path d="M2 12l10 5 10-5" />
               </svg>
             </div>
-            <span className="text-lg font-bold text-gray-900">Export IQ</span>
+            <span className="text-lg font-bold text-gray-900">Souk ExportIQ</span>
           </div>
           <div className="flex items-center gap-8">
             <span className="text-sm font-semibold text-emerald-600">Spec Sheets</span>
@@ -95,7 +95,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-white border-t border-gray-200 py-6 px-6 mt-auto">
         <div className="max-w-7xl mx-auto flex justify-between items-center text-sm text-gray-500">
-          <p>Export IQ - Export Intelligence Engine</p>
+          <p>Souk ExportIQ - Export Intelligence Engine</p>
           <p className="text-gray-400">Powered by Neon PostgreSQL</p>
         </div>
       </footer>

@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Export IQ - Export Intelligence Engine",
+  title: "Souk ExportIQ - Export Intelligence Engine",
   description: "Manage customer spec sheets with crop specifications, packaging types, pallet weights, and pricing",
 };
 

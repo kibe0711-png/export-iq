@@ -43,12 +43,20 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Helper to parse currency values (handles $, commas, spaces)
+    const parseCurrency = (value: string | undefined): number => {
+      if (!value) return 0;
+      // Remove currency symbols, spaces, and replace comma decimal separators
+      const cleaned = String(value).replace(/[$€£\s]/g, "").replace(/,/g, ".");
+      return parseFloat(cleaned) || 0;
+    };
+
     const sheets = parseResult.data.map((row) => ({
       customerCode: String(row.customer || row.customer_code || "").trim(),
       crop: String(row.crop || "").trim(),
       packagingType: String(row.packaging || row.type || row.packaging_type || "").trim(),
-      palletWeight: parseFloat(String(row.pallet_weight || "0")) || 0,
-      price: parseFloat(String(row.price || "0")) || 0,
+      palletWeight: parseFloat(String(row.pallet_weight || "0").replace(/,/g, "")) || 0,
+      price: parseCurrency(row.price),
     }));
 
     const validSheets = sheets.filter(
