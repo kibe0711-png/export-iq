@@ -44,9 +44,9 @@ export async function POST(request: NextRequest) {
     }
 
     const sheets = parseResult.data.map((row) => ({
-      customerCode: String(row.customer_code || "").trim(),
+      customerCode: String(row.customer || row.customer_code || "").trim(),
       crop: String(row.crop || "").trim(),
-      packagingType: String(row.type || row.packaging_type || "").trim(),
+      packagingType: String(row.packaging || row.type || row.packaging_type || "").trim(),
       palletWeight: parseFloat(String(row.pallet_weight || "0")) || 0,
       price: parseFloat(String(row.price || "0")) || 0,
     }));
@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           error:
-            "No valid rows found. Required columns: customer_code, crop, type, pallet_weight, price",
+            "No valid rows found. Required columns: customer, crop, packaging, pallet_weight, price",
         },
         { status: 400 }
       );
