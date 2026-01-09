@@ -45,3 +45,17 @@ model ExportPlan {
   @@index([weekStart])
   @@index([customerCode])
 }
+
+model HarvestPlan {
+  id        Int      @id @default(autoincrement())
+  weekStart DateTime @map("week_start")
+  cropCode  String   @map("crop_code")
+  crop      String
+  kgs       Float
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("harvest_plans")
+  @@index([weekStart])
+  @@index([cropCode])
+}

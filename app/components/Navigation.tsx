@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 
 const navItems = [
   { href: "/", label: "Spec Sheets" },
+  { href: "/harvest-plan", label: "Harvest Plan" },
   { href: "/export-plan", label: "Export Plan" },
   { href: "#", label: "Analytics", disabled: true },
   { href: "#", label: "Settings", disabled: true },
