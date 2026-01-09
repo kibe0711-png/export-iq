@@ -16,26 +16,25 @@ export default function HarvestPlanForm({ cropOptions, onSubmit }: HarvestPlanFo
   const [cropCode, setCropCode] = useState("");
   const [kgs, setKgs] = useState<number>(0);
 
-  const uniqueCrops = useMemo(() => {
+  const uniqueCropCodes = useMemo(() => {
     const seen = new Set<string>();
-    return cropOptions.filter((opt) => {
-      if (seen.has(opt.cropCode)) return false;
-      seen.add(opt.cropCode);
-      return true;
-    });
+    return cropOptions
+      .filter((opt) => {
+        if (!opt.cropCode || seen.has(opt.cropCode)) return false;
+        seen.add(opt.cropCode);
+        return true;
+      })
+      .map((opt) => opt.cropCode)
+      .sort();
   }, [cropOptions]);
-
-  const selectedCrop = useMemo(() => {
-    return uniqueCrops.find((c) => c.cropCode === cropCode);
-  }, [uniqueCrops, cropCode]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!selectedCrop || kgs <= 0) return;
+    if (!cropCode || kgs <= 0) return;
 
     onSubmit({
-      cropCode: selectedCrop.cropCode,
-      crop: selectedCrop.crop,
+      cropCode: cropCode,
+      crop: cropCode,
       kgs,
     });
 
@@ -53,12 +52,12 @@ export default function HarvestPlanForm({ cropOptions, onSubmit }: HarvestPlanFo
           <select
             value={cropCode}
             onChange={(e) => setCropCode(e.target.value)}
-            className="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm font-light focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
+            className="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm font-mono focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
           >
             <option value="">Select crop code</option>
-            {uniqueCrops.map((c) => (
-              <option key={c.cropCode} value={c.cropCode}>
-                {c.cropCode} - {c.crop}
+            {uniqueCropCodes.map((code) => (
+              <option key={code} value={code}>
+                {code}
               </option>
             ))}
           </select>
@@ -78,11 +77,11 @@ export default function HarvestPlanForm({ cropOptions, onSubmit }: HarvestPlanFo
           />
         </div>
 
-        {selectedCrop && kgs > 0 && (
+        {cropCode && kgs > 0 && (
           <div className="pt-4 border-t border-gray-100">
             <div className="flex justify-between text-sm">
-              <span className="font-light text-gray-500">Crop</span>
-              <span className="text-gray-900">{selectedCrop.crop}</span>
+              <span className="font-light text-gray-500">Crop Code</span>
+              <span className="font-mono text-gray-900">{cropCode}</span>
             </div>
             <div className="flex justify-between text-sm mt-2">
               <span className="font-light text-gray-500">Total Harvest</span>
@@ -93,7 +92,7 @@ export default function HarvestPlanForm({ cropOptions, onSubmit }: HarvestPlanFo
 
         <button
           type="submit"
-          disabled={!selectedCrop || kgs <= 0}
+          disabled={!cropCode || kgs <= 0}
           className="w-full mt-4 px-4 py-2.5 bg-emerald-500 text-white text-sm font-medium rounded-lg hover:bg-emerald-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
           Add to Plan
