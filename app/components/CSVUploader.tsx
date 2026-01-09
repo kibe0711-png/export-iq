@@ -66,15 +66,12 @@ export default function CSVUploader({ onUploadComplete }: CSVUploaderProps) {
     }
   };
 
-  const handleDrop = useCallback(
-    (e: React.DragEvent) => {
-      e.preventDefault();
-      setIsDragging(false);
-      const file = e.dataTransfer.files[0];
-      if (file) uploadFile(file);
-    },
-    [replaceAll]
-  );
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const file = e.dataTransfer.files[0];
+    if (file) uploadFile(file);
+  };
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
