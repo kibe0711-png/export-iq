@@ -3,6 +3,7 @@
 interface ExportPlan {
   id: number;
   customerCode: string;
+  cropCode: string;
   crop: string;
   packagingType: string;
   quantity: number;

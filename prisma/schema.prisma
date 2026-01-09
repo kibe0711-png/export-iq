@@ -29,6 +29,7 @@ model ExportPlan {
   id            Int      @id @default(autoincrement())
   weekStart     DateTime @map("week_start")
   customerCode  String   @map("customer_code")
+  cropCode      String   @default("") @map("crop_code")
   crop          String
   packagingType String   @map("packaging_type")
   quantity      Int
@@ -44,6 +45,7 @@ model ExportPlan {
   @@map("export_plans")
   @@index([weekStart])
   @@index([customerCode])
+  @@index([cropCode])
 }
 
 model HarvestPlan {

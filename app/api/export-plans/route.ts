@@ -47,6 +47,7 @@ export async function POST(request: NextRequest) {
     const {
       weekStart,
       customerCode,
+      cropCode,
       crop,
       packagingType,
       quantity,
@@ -71,6 +72,7 @@ export async function POST(request: NextRequest) {
       data: {
         weekStart: monday,
         customerCode,
+        cropCode: cropCode || "",
         crop,
         packagingType,
         quantity: parseInt(quantity),

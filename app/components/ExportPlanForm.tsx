@@ -5,6 +5,7 @@ import { useState, useEffect, useMemo } from "react";
 interface SpecSheet {
   id: number;
   customerCode: string;
+  cropCode: string;
   crop: string;
   packagingType: string;
   palletWeight: number;
@@ -17,6 +18,7 @@ interface ExportPlanFormProps {
   weekStart: Date;
   onSubmit: (plan: {
     customerCode: string;
+    cropCode: string;
     crop: string;
     packagingType: string;
     quantity: number;
@@ -73,6 +75,7 @@ export default function ExportPlanForm({ specSheets, weekStart, onSubmit }: Expo
 
     onSubmit({
       customerCode: selectedSpec.customerCode,
+      cropCode: selectedSpec.cropCode,
       crop: selectedSpec.crop,
       packagingType: selectedSpec.packagingType,
       quantity,

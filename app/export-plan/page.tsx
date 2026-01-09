@@ -9,6 +9,7 @@ import ExportPlanTable from "../components/ExportPlanTable";
 interface SpecSheet {
   id: number;
   customerCode: string;
+  cropCode: string;
   crop: string;
   packagingType: string;
   palletWeight: number;
@@ -20,6 +21,7 @@ interface ExportPlan {
   id: number;
   weekStart: string;
   customerCode: string;
+  cropCode: string;
   crop: string;
   packagingType: string;
   quantity: number;
@@ -84,6 +86,7 @@ export default function ExportPlanPage() {
 
   const handleAddPlan = async (plan: {
     customerCode: string;
+    cropCode: string;
     crop: string;
     packagingType: string;
     quantity: number;
