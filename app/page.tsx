@@ -58,22 +58,8 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Hero */}
-      <div className="bg-gradient-to-b from-white to-gray-50 border-b border-gray-200 py-12 px-6">
-        <div className="max-w-7xl mx-auto">
-          <span className="inline-block px-3 py-1 bg-emerald-50 text-emerald-700 rounded-full text-xs font-semibold mb-4">
-            Customer Specifications
-          </span>
-          <h1 className="text-4xl font-bold text-gray-900 mb-3">Export Intelligence Engine</h1>
-          <p className="text-gray-500 max-w-xl">
-            Manage customer spec sheets with crop specifications, packaging types, pallet weights, and pricing.
-            Upload CSV files to get started.
-          </p>
-        </div>
-      </div>
-
       {/* Main Content */}
-      <main className="flex-1 max-w-7xl mx-auto w-full px-6 py-8">
+      <main className="flex-1 max-w-7xl mx-auto w-full px-6 py-6">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           <div className="lg:sticky lg:top-24">
             <CSVUploader onUploadComplete={fetchSpecSheets} />
