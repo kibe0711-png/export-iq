@@ -13,6 +13,7 @@ model SpecSheet {
   crop          String
   packagingType String   @map("packaging_type")
   palletWeight  Float    @map("pallet_weight")
+  unit          Float    @default(0)
   price         Float
   createdAt     DateTime @default(now()) @map("created_at")
   updatedAt     DateTime @updatedAt @map("updated_at")
@@ -20,4 +21,25 @@ model SpecSheet {
   @@map("spec_sheets")
   @@index([customerCode])
   @@index([crop])
+}
+
+model ExportPlan {
+  id            Int      @id @default(autoincrement())
+  weekStart     DateTime @map("week_start")
+  customerCode  String   @map("customer_code")
+  crop          String
+  packagingType String   @map("packaging_type")
+  quantity      Int
+  palletWeight  Float    @map("pallet_weight")
+  unitWeight    Float    @map("unit_weight")
+  price         Float
+  totalWeight   Float    @map("total_weight")
+  unitCount     Float    @map("unit_count")
+  revenue       Float
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  @@map("export_plans")
+  @@index([weekStart])
+  @@index([customerCode])
 }

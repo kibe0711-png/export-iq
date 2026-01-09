@@ -130,7 +130,7 @@ export default function CSVUploader({ onUploadComplete }: CSVUploaderProps) {
               <span className="text-emerald-600 font-medium">Click to upload</span> or drag and drop
             </p>
             <p className="text-gray-400 text-xs">
-              CSV with customer, crop, packaging, pallet_weight, price
+              CSV with customer, crop, packaging, pallet_weight, unit, price
             </p>
           </>
         )}
@@ -177,7 +177,7 @@ export default function CSVUploader({ onUploadComplete }: CSVUploaderProps) {
       <div className="mt-6 pt-6 border-t border-gray-100">
         <p className="text-xs text-gray-400 mb-2">Expected CSV format:</p>
         <code className="block p-3 bg-gray-50 rounded-lg text-xs text-gray-600 font-mono">
-          customer,crop,packaging,pallet_weight,price
+          customer,crop,packaging,pallet_weight,unit,price
         </code>
       </div>
     </div>

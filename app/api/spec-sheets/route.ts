@@ -56,6 +56,7 @@ export async function POST(request: NextRequest) {
       crop: String(row.crop || "").trim(),
       packagingType: String(row.packaging || row.type || row.packaging_type || "").trim(),
       palletWeight: parseFloat(String(row.pallet_weight || "0").replace(/,/g, "")) || 0,
+      unit: parseFloat(String(row.unit || "0").replace(/,/g, "")) || 0,
       price: parseCurrency(row.price),
     }));
 
@@ -67,7 +68,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           error:
-            "No valid rows found. Required columns: customer, crop, packaging, pallet_weight, price",
+            "No valid rows found. Required columns: customer, crop, packaging, pallet_weight, unit, price",
         },
         { status: 400 }
       );
