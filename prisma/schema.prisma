@@ -1,0 +1,23 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model SpecSheet {
+  id            Int      @id @default(autoincrement())
+  customerCode  String   @map("customer_code")
+  crop          String
+  packagingType String   @map("packaging_type")
+  palletWeight  Float    @map("pallet_weight")
+  price         Float
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  @@map("spec_sheets")
+  @@index([customerCode])
+  @@index([crop])
+}
