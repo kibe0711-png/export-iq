@@ -148,7 +148,7 @@ export default function SpecSheetTable({ data, onRefresh }: SpecSheetTableProps)
                 className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 cursor-pointer select-none"
                 onClick={() => handleSort("cropCode")}
               >
-                Code <SortIcon field="cropCode" />
+                Crop Code <SortIcon field="cropCode" />
               </th>
               <th
                 className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 cursor-pointer select-none"
