@@ -8,6 +8,7 @@ import SpecSheetTable from "./components/SpecSheetTable";
 interface SpecSheet {
   id: number;
   customerCode: string;
+  cropCode: string;
   crop: string;
   packagingType: string;
   palletWeight: number;

@@ -10,6 +10,7 @@ datasource db {
 model SpecSheet {
   id            Int      @id @default(autoincrement())
   customerCode  String   @map("customer_code")
+  cropCode      String   @default("") @map("crop_code")
   crop          String
   packagingType String   @map("packaging_type")
   palletWeight  Float    @map("pallet_weight")
@@ -20,6 +21,7 @@ model SpecSheet {
 
   @@map("spec_sheets")
   @@index([customerCode])
+  @@index([cropCode])
   @@index([crop])
 }
 

@@ -5,6 +5,7 @@ import { useState } from "react";
 interface SpecSheet {
   id: number;
   customerCode: string;
+  cropCode: string;
   crop: string;
   packagingType: string;
   palletWeight: number;
@@ -145,6 +146,12 @@ export default function SpecSheetTable({ data, onRefresh }: SpecSheetTableProps)
               </th>
               <th
                 className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 cursor-pointer select-none"
+                onClick={() => handleSort("cropCode")}
+              >
+                Code <SortIcon field="cropCode" />
+              </th>
+              <th
+                className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500 cursor-pointer select-none"
                 onClick={() => handleSort("crop")}
               >
                 Crop <SortIcon field="crop" />
@@ -179,7 +186,7 @@ export default function SpecSheetTable({ data, onRefresh }: SpecSheetTableProps)
           <tbody className="divide-y divide-gray-50">
             {sortedData.length === 0 ? (
               <tr>
-                <td colSpan={7} className="px-6 py-12 text-center text-gray-400 text-sm font-light">
+                <td colSpan={8} className="px-6 py-12 text-center text-gray-400 text-sm font-light">
                   {searchTerm ? "No matching specifications found" : "No specifications uploaded yet"}
                 </td>
               </tr>
@@ -188,6 +195,9 @@ export default function SpecSheetTable({ data, onRefresh }: SpecSheetTableProps)
                 <tr key={sheet.id} className="hover:bg-gray-50 transition-colors">
                   <td className="px-6 py-4 text-sm font-medium text-gray-900">
                     {sheet.customerCode}
+                  </td>
+                  <td className="px-6 py-4 text-sm font-mono text-gray-600">
+                    {sheet.cropCode}
                   </td>
                   <td className="px-6 py-4">
                     <span className="inline-block px-3 py-1 bg-emerald-50 text-emerald-700 rounded-full text-xs font-medium">
